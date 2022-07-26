@@ -27,3 +27,8 @@ $ python3 run_server.py
 ```bash
 $ python3 client.py
 ```
+
+# Testing
+```bash
+$ python3 -m unittest discover
+```
