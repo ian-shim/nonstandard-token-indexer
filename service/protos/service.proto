@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+message TokenTransfer {
+  string address = 1;
+  string from_address = 2;
+  string to_address = 3;
+  string token_id = 4;
+  string transaction_hash = 5;
+  uint64 block_number = 6;
+  uint64 log_index = 7;
+  uint32 chain_id = 8;
+  string block_hash = 9;
+  uint32 tx_index = 10;
+}
+
+message GetTransfersRequest {
+  // Inclusive
+  uint64 from_block = 1;
+  // Exclusive
+  uint64 to_block = 2;
+  // If specified, will filter only transfers for this contract
+  string address = 3;
+}
+
+service TransfersService {
+  // Get all NFT transfers in a range, inclusive of the
+  // lower, exclusive of the higher
+  rpc GetTransfers(GetTransfersRequest) returns (stream TokenTransfer);
+}
+
+// Notes
+// 1. validate input (null fields)
+
+// ethereum-mainnet	0xb47e3cd837ddf8e4c57f05d70ab865de6e193bbb	Cryptopunks
+// ethereum-mainnet	0x06012c8cf97bead5deae237070f9587f8e7a266d	CryptoKitties
+// ethereum-mainnet	0xc2c747e0f7004f9e8817db2ca4997657a7746928	Hashmasks
+// ethereum-mainnet	0x76be3b62873462d2142405439777e971754e8e77	Parallels
+// ethereum-mainnet	0x57f1887a8BF19b14fC0dF6Fd9B2acc9Af147eA85	ENS
